@@ -367,6 +367,25 @@ static const struct amd_flash_info jedec_table[] = {
 		}
 	},
 #endif
+	/* JZ2440v2¨º1¨®?¦Ì?MT29LV160DB */
+	{
+			.mfr_id		= (u16)MX_MANUFACT,  /* 3¡ì?¨°ID */
+			.dev_id		= 0X2249,            /* ¨¦¨¨¡À?ID */
+			.name		= "MXIC MT29LV160DB",
+			.uaddr		= {  /* NOR flash?¡ä¦Ì??a??¦Ì??¡¤ */
+				[1] = MTD_UADDR_0x0555_0x02AA /* x16 */
+			},
+			.DevSize	= SIZE_2MiB,    /* ¡Á¨¹¡ä¨®D? */
+			.CmdSet		= P_ID_AMD_STD,
+			.NumEraseRegions= 4,
+			.regions	= {
+				ERASEINFO(16*1024, 1),
+				ERASEINFO(8*1024, 2),	
+				ERASEINFO(32*1024, 1),	
+				ERASEINFO(64*1024, 31),	
+			}
+		},
+
 };
 
 static inline void fill_info(flash_info_t *info, const struct amd_flash_info *jedec_entry, ulong base)

@@ -36,10 +36,10 @@
 #define CONFIG_ARM920T		/* This is an ARM920T Core */
 #define CONFIG_S3C24X0		/* in a SAMSUNG S3C24x0-type SoC */
 //#define CONFIG_S3C2410		/* specifically a SAMSUNG S3C2410 SoC */
-#define CONFIG_S3C2440		/* specifically a SAMSUNG S3C2410 SoC */
+#define CONFIG_S3C2440
 #define CONFIG_SMDK2410		/* on a SAMSUNG SMDK2410 Board */
 
-#define CONFIG_SYS_TEXT_BASE	0x0
+#define CONFIG_SYS_TEXT_BASE	0x33f00000
 
 #define CONFIG_SYS_ARM_CACHE_WRITETHROUGH
 
@@ -68,15 +68,15 @@
 /************************************************************
  * USB support (currently only works with D-cache off)
  ************************************************************/
-#define CONFIG_USB_OHCI
-#define CONFIG_USB_KEYBOARD
-#define CONFIG_USB_STORAGE
-#define CONFIG_DOS_PARTITION
+//#define CONFIG_USB_OHCI
+//#define CONFIG_USB_KEYBOARD
+//#define CONFIG_USB_STORAGE
+//#define CONFIG_DOS_PARTITION
 
 /************************************************************
  * RTC
  ************************************************************/
-#define CONFIG_RTC_S3C24X0
+//#define CONFIG_RTC_S3C24X0
 
 
 #define CONFIG_BAUDRATE		115200
@@ -84,10 +84,10 @@
 /*
  * BOOTP options
  */
-#define CONFIG_BOOTP_BOOTFILESIZE
-#define CONFIG_BOOTP_BOOTPATH
-#define CONFIG_BOOTP_GATEWAY
-#define CONFIG_BOOTP_HOSTNAME
+//#define CONFIG_BOOTP_BOOTFILESIZE
+//#define CONFIG_BOOTP_BOOTPATH
+//#define CONFIG_BOOTP_GATEWAY
+//#define CONFIG_BOOTP_HOSTNAME
 
 /*
  * Command line configuration.
@@ -96,13 +96,13 @@
 
 #define CONFIG_CMD_BSP
 #define CONFIG_CMD_CACHE
-#define CONFIG_CMD_DATE
-#define CONFIG_CMD_DHCP
+//#define CONFIG_CMD_DATE
+//#define CONFIG_CMD_DHCP
 #define CONFIG_CMD_ELF
-//#define CONFIG_CMD_NAND
+#define CONFIG_CMD_NAND
 #define CONFIG_CMD_PING
 #define CONFIG_CMD_REGINFO
-#define CONFIG_CMD_USB
+//#define CONFIG_CMD_USB
 
 #define CONFIG_SYS_HUSH_PARSER
 #define CONFIG_SYS_PROMPT_HUSH_PS2	"> "
@@ -187,13 +187,19 @@
 
 #define CONFIG_SYS_MAX_FLASH_BANKS	1
 #define CONFIG_SYS_FLASH_BANKS_LIST     { CONFIG_SYS_FLASH_BASE }
-#define CONFIG_SYS_MAX_FLASH_SECT	(19)
+#define CONFIG_SYS_MAX_FLASH_SECT	(128)
 
+#if 0
 #define CONFIG_ENV_ADDR			(CONFIG_SYS_FLASH_BASE + 0x070000)
 #define CONFIG_ENV_IS_IN_FLASH
 #define CONFIG_ENV_SIZE			0x10000
 /* allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
+#endif
+#define CONFIG_ENV_IS_IN_NAND
+#define CONFIG_ENV_OFFSET      0x00040000
+#define CONFIG_ENV_SIZE        0x20000
+#define CONFIG_ENV_RANGE       CONFIG_ENV_SIZE
 
 /*
  * Size of malloc() pool
@@ -208,8 +214,15 @@
  * NAND configuration
  */
 #ifdef CONFIG_CMD_NAND
+
+#ifdef CONFIG_S3C2410
 #define CONFIG_NAND_S3C2410
 #define CONFIG_SYS_S3C2410_NAND_HWECC
+#else
+#define CONFIG_NAND_S3C2440
+#define CONFIG_SYS_S3C2440_NAND_HWECC
+#endif
+
 #define CONFIG_SYS_MAX_NAND_DEVICE	1
 #define CONFIG_SYS_NAND_BASE		0x4E000000
 #endif
@@ -217,6 +230,7 @@
 /*
  * File system
  */
+#if 0 
 #define CONFIG_CMD_FAT
 #define CONFIG_CMD_EXT2
 #define CONFIG_CMD_UBI
@@ -226,7 +240,7 @@
 #define CONFIG_MTD_PARTITIONS
 #define CONFIG_YAFFS2
 #define CONFIG_RBTREE
-
+#endif
 /* additions for new relocation code, must be added to all boards */
 #define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM_1
 #define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_SDRAM_BASE + 0x1000 - \
