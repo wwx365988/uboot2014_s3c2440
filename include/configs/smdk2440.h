@@ -161,6 +161,11 @@
 #define CONFIG_LZO
 #define CONFIG_LZMA
 
+#define CONFIG_CMD_NAND_YAFFS
+
+#define CONFIG_BOOTARGS "console=ttySAC0 root=/dev/mtdblock3"
+#define CONFIG_BOOTCOMMAND "nand read 30000000 kernel;bootm 30000000"
+
 /*-----------------------------------------------------------------------
  * Stack sizes
  *
@@ -208,6 +213,15 @@
 #define CONFIG_ENV_OFFSET      0x00040000
 #define CONFIG_ENV_SIZE        0x20000
 #define CONFIG_ENV_RANGE       CONFIG_ENV_SIZE
+
+#define CONFIG_CMD_MTDPARTS
+#define CONFIG_MTD_DEVICE
+#define MTDIDS_DEFAULT		"nand0=jz2440-0"  /* 哪一个设备 */
+#define MTDPARTS_DEFAULT	"mtdparts=jz2440-0:256k(u-boot),"	\
+						"128k(params),"		\
+						"2m(kernel),"	\
+						"-(rootfs)"		\
+
 
 /*
  * Size of malloc() pool
