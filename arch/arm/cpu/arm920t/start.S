@@ -171,7 +171,8 @@ copyex:
 	str	r1, [r0]
 # endif
 
-	/* 2. 设置时钟 */
+
+/* 2. 设置时钟 */
 	ldr r0, =0x4c000014
 	//	mov r1, #0x03;			  // FCLK:HCLK:PCLK=1:2:4, HDIVN=1,PDIVN=1
 	mov r1, #0x05;			  // FCLK:HCLK:PCLK=1:4:8
@@ -193,6 +194,8 @@ copyex:
 	mrc p15, 0, r0, c1, c0, 0	@ read control reg
 	orr r0, r0, #(1<<12)
 	mcr	p15, 0, r0, c1, c0, 0   @ write it back
+
+
 #endif	/* CONFIG_S3C24X0 */
 
 	/*
